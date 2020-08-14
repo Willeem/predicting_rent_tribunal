@@ -1,0 +1,114 @@
+---
+title: "significance_testing_ex2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+``` {r packages, echo=FALSE}
+library(car)
+library(ggplot2)
+library(dplyr)
+library(effsize)
+```
+### Settlement of service costs
+```{r afrekening_servicekosten, echo=FALSE}
+
+
+afrekening_servicekosten_False <- read.csv("~/RUGMaster/master_thesis/significance_testing/afrekening_servicekosten_False.txt", sep="")
+len_False <- nrow(afrekening_servicekosten_False)
+afrekening_servicekosten_False$group <- rep("Random",len_False)
+
+afrekening_servicekosten_True <- read.csv("~/RUGMaster/master_thesis/significance_testing/afrekening_servicekosten_True.txt", sep="")
+len_True <- nrow(afrekening_servicekosten_True)
+afrekening_servicekosten_True$group <- rep("Future",len_True)
+afrekening_servicekosten <- rbind(afrekening_servicekosten_False, afrekening_servicekosten_True)
+p <- ggplot(afrekening_servicekosten, aes(x=group, y=Error, color=group)) + geom_boxplot()
+p
+
+leveneTest(Error~group, data=afrekening_servicekosten)
+
+
+```
+### Decrease in rent because of shortcomings
+```{r gebreken, echo=FALSE}
+
+
+gebreken_False <- read.csv("~/RUGMaster/master_thesis/significance_testing/gebreken_False.txt", sep="")
+len_False <- nrow(gebreken_False)
+gebreken_False$group <- rep("Random",len_False)
+
+gebreken_True <- read.csv("~/RUGMaster/master_thesis/significance_testing/gebreken_True.txt", sep="")
+len_True <- nrow(gebreken_True)
+gebreken_True$group <- rep("Future",len_True)
+gebreken <- rbind(gebreken_False, gebreken_True)
+p <- ggplot(gebreken, aes(x=group, y=Error, color=group)) + geom_boxplot()
+p
+
+leveneTest(Error~group, data=gebreken)
+
+
+```
+### Decrease in rent because of points
+```{r punten, echo=FALSE}
+
+
+punten_False <- read.csv("~/RUGMaster/master_thesis/significance_testing/punten_False.txt", sep="")
+len_False <- nrow(punten_False)
+punten_False$group <- rep("Random",len_False)
+
+punten_True <- read.csv("~/RUGMaster/master_thesis/significance_testing/punten_True.txt", sep="")
+len_True <- nrow(punten_True)
+punten_True$group <- rep("Future",len_True)
+punten <- rbind(punten_False, punten_True)
+p <- ggplot(punten, aes(x=group, y=Error, color=group)) + geom_boxplot()
+p
+
+leveneTest(Error~group, data=punten)
+
+
+```
+### Assessment of initial rent
+```{r toetsing, echo=FALSE}
+
+
+toetsing_False <- read.csv("~/RUGMaster/master_thesis/significance_testing/toetsing_False.txt", sep="")
+len_False <- nrow(toetsing_False)
+toetsing_False$group <- rep("Random",len_False)
+
+toetsing_True <- read.csv("~/RUGMaster/master_thesis/significance_testing/toetsing_True.txt", sep="")
+len_True <- nrow(toetsing_True)
+toetsing_True$group <- rep("Future",len_True)
+toetsing <- rbind(toetsing_False, toetsing_True)
+p <- ggplot(toetsing, aes(x=group, y=Error, color=group)) + geom_boxplot()
+p
+
+leveneTest(Error~group, data=toetsing)
+
+
+```
+### Settlement of service costs
+```{r t_afrekening_servicekosten, echo=FALSE}
+cohen.d(afrekening_servicekosten$Error,afrekening_servicekosten$group)
+t.test(Error~group, data=afrekening_servicekosten, var.equal= FALSE)
+
+```
+### Decrease in rent because of shortcomings
+```{r t_gebreken, echo=FALSE}
+cohen.d(gebreken$Error,gebreken$group)
+t.test(Error~group, data=gebreken, var.equal= FALSE)
+
+```
+### Decrease in rent because of points
+```{r t_punten, echo=FALSE}
+cohen.d(punten$Error,punten$group)
+t.test(Error~group, data=punten, var.equal = TRUE)
+
+```
+### Assessment of initial rent
+```{r t_toetsing, echo=FALSE}
+cohen.d(toetsing$Error,toetsing$group)
+t.test(Error~group, data=toetsing, var.equal= FALSE)
+
+```

@@ -1,0 +1,65 @@
+---
+title: "significance_testing_ma_thesis"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(lsr)
+```
+
+### Settlement of service costs
+
+```{r afrekening, echo=FALSE}
+observed_as = matrix(c(632,214,164,53),nrow=2)
+
+colnames(observed_as)=c("Correct", "Incorrect")
+rownames(observed_as)=c("Random", "Future")
+observed_as
+cramersV(observed_as)
+res_as = chisq.test(observed_as, correct=FALSE)
+res_as
+```
+### Decrease in rent because of Shortcomings
+```{r gebreken, echo=FALSE}
+observed_ge = matrix(c(1093,170,231,35),nrow=2)
+
+colnames(observed_ge)=c("Correct", "Incorrect")
+rownames(observed_ge)=c("Random", "Future")
+observed_ge
+cramersV(observed_ge)
+res_ge = chisq.test(observed_ge, correct=FALSE)
+res_ge
+```
+### Decrease in rent because of points
+```{r punten, echo=FALSE}
+observed_pu = matrix(c(166,44,58,12),nrow=2)
+
+colnames(observed_pu)=c("Correct", "Incorrect")
+rownames(observed_pu)=c("Random", "Future")
+observed_pu
+cramersV(observed_pu)
+res_pu = chisq.test(observed_pu, correct=FALSE)
+res_pu
+```
+### Assessment of initial rent
+```{r toetsing, echo=FALSE}
+observed_to = matrix(c(460,86,177,30),nrow=2)
+
+colnames(observed_to)=c("Correct", "Incorrect")
+rownames(observed_to)=c("Random", "Future")
+observed_to
+cramersV(observed_to)
+res_to =  chisq.test(observed_to, correct=FALSE)
+res_to
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
